@@ -36,6 +36,7 @@ vim.g.airline_solarized_bg = 'dark'
 
 require("lazy").setup(plugins, opts)
 require("lspconfig").clangd.setup{}
+require("lspconfig").pylsp.setup{}
 
 vim.cmd.colorscheme('onedark')
 vim.cmd.AirlineTheme('dark')
