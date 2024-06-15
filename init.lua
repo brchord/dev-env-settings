@@ -27,17 +27,24 @@ plugins = {
     'hrsh7th/cmp-path',
     'hrsh7th/nvim-cmp',
     'ludovicchabant/vim-gutentags',
+    'vim-airline/vim-airline',
+    'vim-airline/vim-airline-themes',
 }
+
+vim.g.airline_powerline_fonts = 1
+vim.g.airline_solarized_bg = 'dark'
+
 require("lazy").setup(plugins, opts)
 require("lspconfig").clangd.setup{}
 
-vim.cmd.colorscheme("onedark")
+vim.cmd.colorscheme('onedark')
+vim.cmd.AirlineTheme('dark')
 
 local cmp = require('cmp')
 cmp.setup({
     snippet = {
       expand = function(args)
-        vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+        vim.snippet.expand(args.body)
         -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
@@ -61,7 +68,6 @@ cmp.setup({
     })
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
@@ -72,9 +78,7 @@ cmp.setup.cmdline(':', {
     matching = { disallow_symbol_nonprefix_matching = false }
 })
 
--- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 require('lspconfig')['clangd'].setup {
     capabilities = capabilities
 }
