@@ -1,13 +1,16 @@
 # dev-env-settings
 Personal development environment settings
 
+
 ## Packages to install
+
+Install NerdFonts (www.nerdfonts.com) on the machine that will be using the terminal emulation. 
 
 ```
 sudo apt install zsh tmux clang clangd clang-tidy clang-format ninja-build universal-ctags python3-pynvim
 ```
 
-**Note:** Do not install `neovim` from `apt`, instead install the later binary release from their official website.
+**Note:** Do not install `neovim` from `apt`, instead install the latest binary release from their official website.
 
 Install OMZ:
 
@@ -20,6 +23,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 ```
 init.lua - ~/.config/nvim/init.lua
+tmux.conf - ~/.tmux.conf
 zprofile - ~/.zprofile
 zshrc - Append to ~/.zshrc
 ```
