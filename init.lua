@@ -16,19 +16,23 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     lazypath,
   })
 end
+
 vim.opt.rtp:prepend(lazypath)
+
 plugins = {
     "joshdick/onedark.vim",
     "neovim/nvim-lspconfig",
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-calc',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-path',
-    'hrsh7th/nvim-cmp',
-    'ludovicchabant/vim-gutentags',
-    'vim-airline/vim-airline',
-    'vim-airline/vim-airline-themes',
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-calc",
+    "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-path",
+    "hrsh7th/nvim-cmp",
+    "vim-airline/vim-airline",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+    "vim-airline/vim-airline-themes",
 }
 
 vim.g.airline_powerline_fonts = 1
@@ -37,6 +41,8 @@ vim.g.airline_solarized_bg = 'dark'
 require("lazy").setup(plugins, opts)
 require("lspconfig").clangd.setup{}
 require("lspconfig").pylsp.setup{}
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 vim.cmd.colorscheme('onedark')
 vim.cmd.AirlineTheme('dark')
