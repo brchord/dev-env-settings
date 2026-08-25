@@ -20,39 +20,43 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 plugins = {
-    "joshdick/onedark.vim",
-    "neovim/nvim-lspconfig",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-calc",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
     "hrsh7th/nvim-cmp",
-    "vim-airline/vim-airline",
-    "mason-org/mason.nvim",
+    "joshdick/onedark.vim",
     "mason-org/mason-lspconfig.nvim",
+    "mason-org/mason.nvim",
     "neovim/nvim-lspconfig",
+    "vim-airline/vim-airline",
     "vim-airline/vim-airline-themes",
 }
+
+require("lazy").setup(plugins, opts)
+require("mason").setup()
+require("mason-lspconfig").setup()
+
+vim.lsp.enable('clangd')
+vim.lsp.enable('pylsp')
 
 vim.g.airline_powerline_fonts = 1
 vim.g.airline_solarized_bg = 'dark'
 
-require("lazy").setup(plugins, opts)
-require("lspconfig").clangd.setup{}
-require("lspconfig").pylsp.setup{}
-require("mason").setup()
-require("mason-lspconfig").setup()
-
-vim.cmd.colorscheme('onedark')
 vim.cmd.AirlineTheme('dark')
+vim.cmd.colorscheme('onedark')
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+vim.lsp.config('clangd', {
+    capabilities = capabilities
+})
 
 local cmp = require('cmp')
 cmp.setup({
     snippet = {
       expand = function(args)
         vim.snippet.expand(args.body)
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
     window = {
@@ -85,7 +89,3 @@ cmp.setup.cmdline(':', {
     matching = { disallow_symbol_nonprefix_matching = false }
 })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('lspconfig')['clangd'].setup {
-    capabilities = capabilities
-}
